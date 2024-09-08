@@ -10,7 +10,10 @@ const Field = () => {
     sdk.dialogs.openCurrentApp({
       title: 'Image Picker',
       width: 800,
+      shouldCloseOnEscapePress: true,
+      shouldCloseOnOverlayClick: true,
       minHeight: '600px',
+      parameters: { apiUrl: `https://pixabay.com/api/?key=${process.env.PIXABAY_API_KEY}` },
     })
   }
   return (
