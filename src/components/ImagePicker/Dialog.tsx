@@ -1,4 +1,4 @@
-import { Button, AssetCard, Grid, Spinner, Paragraph, Pagination, Flex } from "@contentful/f36-components"
+import { AssetCard, Grid, Spinner, Paragraph, Pagination, Flex } from "@contentful/f36-components"
 import React from "react"
 import { useEffect, useState } from "react"
 

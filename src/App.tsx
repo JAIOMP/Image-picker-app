@@ -5,7 +5,7 @@ import Field from './locations/Field';
 import EntryEditor from './locations/EntryEditor';
 import Sidebar from './locations/Sidebar';
 import { useSDK } from '@contentful/react-apps-toolkit';
-import ImagePickerDialog from './components/ImagePickerDialog';
+import ImagePickerDialog from './components/ImagePicker/Dialog';
 
 const ComponentLocationSettings = {
   [locations.LOCATION_APP_CONFIG]: ConfigScreen,
