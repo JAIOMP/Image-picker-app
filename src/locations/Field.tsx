@@ -29,22 +29,29 @@ const Field = () => {
       setFieldValue(result.image);
     }
   };
+
+  const handleDismissImage = () => {
+    setFieldValue(null)
+  }
+  
   return (
     <>
       <Flex flexDirection="column" gap="spacingS">
+      {fieldValue &&
         <AssetCard
           type="image"
-          title={fieldValue && fieldValue.tags}
-          src={fieldValue && fieldValue.previewURL}
+          title={fieldValue.tags}
+          src={fieldValue.previewURL}
           size="small"
           icon={
             <IconButton
               variant="secondary"
               aria-label="Select the date"
               icon={<CloseIcon />}
+              onClick={handleDismissImage}
             />
           }
-        />
+        />}
         <Button onClick={openDialogue}>Pick image</Button>
       </Flex>
     </>
