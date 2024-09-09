@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { AssetCard, Button, Flex, IconButton } from "@contentful/f36-components";
+import {
+  AssetCard,
+  Button,
+  Flex,
+  IconButton,
+} from "@contentful/f36-components";
 import { FieldAppSDK } from "@contentful/app-sdk";
 import { useSDK } from "@contentful/react-apps-toolkit";
 import { CloseIcon } from "@contentful/f36-icons";
 
 const Field = () => {
   const sdk = useSDK<FieldAppSDK>();
-  const [fieldValue, setFieldValue] = useState<any | null>(null);
+  const [fieldValues, setFieldValues] = useState<any[]>([]);
   const { REACT_APP_PIXABAY_API_URL, REACT_APP_PIXABAY_API_KEY } = process.env;
 
   useEffect(() => {
@@ -26,32 +31,37 @@ const Field = () => {
     });
 
     if (result) {
-      setFieldValue(result.image);
+      setFieldValues([result.image, ...fieldValues]);
     }
   };
 
-  const handleDismissImage = () => {
-    setFieldValue(null)
-  }
-  
+  const handleDismissedImage = (imageId: number) => {
+    const updatedFieldValues = fieldValues.filter(
+      (image: any) => image.id !== imageId
+    );
+    setFieldValues(updatedFieldValues);
+  };
+
   return (
     <>
       <Flex flexDirection="column" gap="spacingS">
-      {fieldValue &&
-        <AssetCard
-          type="image"
-          title={fieldValue.tags}
-          src={fieldValue.previewURL}
-          size="small"
-          icon={
-            <IconButton
-              variant="secondary"
-              aria-label="Select the date"
-              icon={<CloseIcon />}
-              onClick={handleDismissImage}
+        {!!fieldValues.length &&
+          fieldValues.map((asset) => (
+            <AssetCard
+              type="image"
+              title={asset.tags}
+              src={asset.previewURL}
+              size="small"
+              icon={
+                <IconButton
+                  variant="secondary"
+                  aria-label="Select the date"
+                  icon={<CloseIcon />}
+                  onClick={() => handleDismissedImage(asset.id)}
+                />
+              }
             />
-          }
-        />}
+          ))}
         <Button onClick={openDialogue}>Pick image</Button>
       </Flex>
     </>
