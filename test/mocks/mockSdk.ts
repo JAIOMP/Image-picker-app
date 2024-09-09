@@ -8,6 +8,12 @@ const mockSdk: any = {
   ids: {
     app: 'test-app',
   },
+  window: {
+    startAutoResizer: jest.fn(),
+  },
+  dialogs: {
+    openCurrentApp: jest.fn(),
+  },
 };
 
 export { mockSdk };
