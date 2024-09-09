@@ -39,7 +39,7 @@ const ImagePickerDialog = (props: any) => {
 
   const handleImageSelect = (image: any) => {
     setSelectedImage(image)
-    props.sdk.close()
+    props.sdk.close({ image })
   }
 
   return (
@@ -60,11 +60,6 @@ const ImagePickerDialog = (props: any) => {
             </AssetCard>
           ))}
         </Grid>
-        {/* {selectedImage && (
-          <div style={{ marginTop: '20px' }}>
-            <Paragraph>Selected Image: {selectedImage.title}</Paragraph>
-          </div>
-        )} */}
         <Button onClick={() => props.sdk.close()}>Close</Button>
       </div>
     )
