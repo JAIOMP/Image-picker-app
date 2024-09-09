@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AssetCard, Button, IconButton } from "@contentful/f36-components";
+import { AssetCard, Button, Flex, IconButton } from "@contentful/f36-components";
 import { FieldAppSDK } from "@contentful/app-sdk";
 import { useSDK } from "@contentful/react-apps-toolkit";
 import { CloseIcon } from "@contentful/f36-icons";
@@ -31,20 +31,22 @@ const Field = () => {
   };
   return (
     <>
-      <AssetCard
-        type="image"
-        title="Everest"
-        src={fieldValue && fieldValue.previewURL}
-        size="small"
-        icon={
-          <IconButton
-            variant="secondary"
-            aria-label="Select the date"
-            icon={<CloseIcon />}
-          />
-        }
-      />
-      <Button onClick={openDialogue}>Pick image</Button>
+      <Flex flexDirection="column" gap="spacingS">
+        <AssetCard
+          type="image"
+          title={fieldValue && fieldValue.tags}
+          src={fieldValue && fieldValue.previewURL}
+          size="small"
+          icon={
+            <IconButton
+              variant="secondary"
+              aria-label="Select the date"
+              icon={<CloseIcon />}
+            />
+          }
+        />
+        <Button onClick={openDialogue}>Pick image</Button>
+      </Flex>
     </>
   );
 };
