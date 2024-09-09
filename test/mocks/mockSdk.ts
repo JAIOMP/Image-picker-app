@@ -14,6 +14,12 @@ const mockSdk: any = {
   dialogs: {
     openCurrentApp: jest.fn(),
   },
+  parameters: {
+    invocation: {
+      apiUrl: 'https://pixabay.com/api/?key=API_KEY',
+    },
+  },
+  close: jest.fn(),
 };
 
 export { mockSdk };

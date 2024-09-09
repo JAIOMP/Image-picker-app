@@ -1,77 +1,100 @@
-import { AssetCard, Grid, Spinner, Paragraph, Pagination, Flex } from "@contentful/f36-components"
-import React from "react"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
+import {
+  AssetCard,
+  Grid,
+  Spinner,
+  Paragraph,
+  Pagination,
+  Flex,
+} from "@contentful/f36-components";
+import { DialogAppSDK } from "@contentful/app-sdk";
 
-const ImagePickerDialog = (props: any) => {
-  const { apiUrl } = props.sdk.parameters.invocation
-  const [data, setData] = useState<any[] | null>(null)
-  const [page, setPage] = useState<number>(0)
-  const [totalImages, setTotalImages] = useState<number>(100)
-  const [selectedImage, setSelectedImage] = useState<any | null>(null);
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+interface Image {
+  id: number;
+  previewURL: string;
+  tags: string;
+}
 
- 
+interface ImagePickerDialogProps {
+  sdk: DialogAppSDK;
+}
+
+interface InvocationParameters {
+  apiUrl?: string;
+}
+
+const ImagePickerDialog: React.FC<ImagePickerDialogProps> = ({ sdk }) => {
+  const { apiUrl } = sdk.parameters.invocation as InvocationParameters;
+  const [images, setImages] = useState<Image[]>([]);
+  const [page, setPage] = useState<number>(0);
+  const [totalImages, setTotalImages] = useState<number>(0);
+  const [selectedImage, setSelectedImage] = useState<Image | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchImages = async () => {
+      setIsLoading(true);
+      setError(null);
+
       try {
-        const response = await fetch(`${apiUrl}&page=${page + 1}`)
+        const response = await fetch(`${apiUrl}&page=${page + 1}`);
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
+          throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        const result = await response.json()
-        setData(result.hits)
-        setTotalImages(result.total)
+
+        const result = await response.json();
+        setImages(result.hits);
+        setTotalImages(result.total);
       } catch (err: any) {
-        setError(err.message)
+        setError(err.message);
       } finally {
-        setLoading(false)
+        setIsLoading(false);
       }
-    }
+    };
 
-    fetchData()
-  }, [apiUrl, page])
+    fetchImages();
+  }, [apiUrl, page]);
 
-  if (loading) {
-    return <Spinner />
+  const handleImageSelect = (image: Image) => {
+    setSelectedImage(image);
+    sdk.close({ image });
+  };
+
+  if (isLoading) {
+    return <Spinner />;
   }
 
   if (error) {
-    return <p>Error: {error}</p>
-  }
-
-  const handleImageSelect = (image: any) => {
-    setSelectedImage(image)
-    props.sdk.close({ image })
+    return <Paragraph>Error: {error}</Paragraph>;
   }
 
   return (
-      <Flex flexDirection="column" justifyContent="space-between" gap="spacingS" padding="spacingM">
-        <Paragraph>Click on an image to select:</Paragraph>
-        <Grid columns="1fr 1fr 1fr" rowGap="spacingM" columnGap="spacingM">
-          {data!.map((image) => (
-            <AssetCard
-              key={image.id}
-              type="image"
-              src={image.previewURL}
-              title={image.tags}
-              onClick={() => handleImageSelect(image)}
-              size="small"
-              isSelected={selectedImage && selectedImage.id === image.id}
-              style={{ cursor: 'pointer' }}
-            >
-            </AssetCard>
-          ))}
-        </Grid>
+    <Flex flexDirection="column" justifyContent="space-between" gap="spacingS" padding="spacingM">
+      <Paragraph>Click on an image to select:</Paragraph>
+      <Grid columns="1fr 1fr 1fr" rowGap="spacingM" columnGap="spacingM">
+        {images.map((image) => (
+          <AssetCard
+            key={image.id}
+            type="image"
+            src={image.previewURL}
+            title={image.tags}
+            onClick={() => handleImageSelect(image)}
+            size="small"
+            isSelected={selectedImage?.id === image.id}
+            style={{ cursor: "pointer" }}
+          />
+        ))}
+      </Grid>
 
-        <Pagination
-          activePage={page}
-          onPageChange={setPage}
-          itemsPerPage={20}
-          totalItems={totalImages}
-        />
-      </Flex>
-    )
-}
+      <Pagination
+        activePage={page}
+        onPageChange={setPage}
+        itemsPerPage={20}
+        totalItems={totalImages}
+      />
+    </Flex>
+  );
+};
 
-export default ImagePickerDialog
+export default ImagePickerDialog;
