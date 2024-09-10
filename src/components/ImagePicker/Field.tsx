@@ -4,10 +4,11 @@ import {
   Button,
   Flex,
   IconButton,
+  Text,
 } from "@contentful/f36-components";
 import { FieldAppSDK } from "@contentful/app-sdk";
 import { useSDK } from "@contentful/react-apps-toolkit";
-import { CloseIcon } from "@contentful/f36-icons";
+import { CloseIcon, ImageIcon } from "@contentful/f36-icons";
 
 const ImagePickerField = () => {
   const sdk = useSDK<FieldAppSDK>();
@@ -45,7 +46,7 @@ const ImagePickerField = () => {
   return (
     <>
       <Flex flexDirection="column" gap="spacingS">
-        {selectedImages.length > 0 &&
+        {selectedImages.length > 0 ? (
           selectedImages.map((image) => (
             <AssetCard
               key={image.id}
@@ -62,8 +63,21 @@ const ImagePickerField = () => {
                 />
               }
             />
-          ))}
-        <Button onClick={handleOpenDialog}>Pick image</Button>
+          ))
+        ) : (
+          <Text fontSize="fontSizeL" lineHeight="lineHeightL">
+            No images selected yet. Click 'Pick Image' to choose an image.
+          </Text>
+        )}
+
+        <Button
+          startIcon={<ImageIcon />}
+          onClick={handleOpenDialog}
+          variant="primary"
+          size="medium"
+        >
+          Pick Image
+        </Button>
       </Flex>
     </>
   );

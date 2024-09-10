@@ -6,6 +6,7 @@ import {
   Paragraph,
   Pagination,
   Flex,
+  Text
 } from "@contentful/f36-components";
 import { DialogAppSDK } from "@contentful/app-sdk";
 
@@ -62,7 +63,7 @@ const ImagePickerDialog: React.FC<ImagePickerDialogProps> = ({ sdk }) => {
   };
 
   if (isLoading) {
-    return <Spinner />;
+    return <Spinner size="large" />;
   }
 
   if (error) {
@@ -71,8 +72,11 @@ const ImagePickerDialog: React.FC<ImagePickerDialogProps> = ({ sdk }) => {
 
   return (
     <Flex flexDirection="column" justifyContent="space-between" gap="spacingS" padding="spacingM">
-      <Paragraph>Click on an image to select:</Paragraph>
-      <Grid columns="1fr 1fr 1fr" rowGap="spacingM" columnGap="spacingM">
+      <Text fontSize="fontSizeL" lineHeight="lineHeightL">
+        Click on an image to select:
+      </Text>
+
+      <Grid columns="3fr 3fr 3fr" rowGap="spacingM" columnGap="spacingM">
         {images.map((image) => (
           <AssetCard
             key={image.id}
