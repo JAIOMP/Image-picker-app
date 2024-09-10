@@ -9,12 +9,7 @@ import {
   Text
 } from "@contentful/f36-components";
 import { DialogAppSDK } from "@contentful/app-sdk";
-
-interface Image {
-  id: number;
-  previewURL: string;
-  tags: string;
-}
+import { PixabayImageData } from "../../configs/types";
 
 interface ImagePickerDialogProps {
   sdk: DialogAppSDK;
@@ -26,10 +21,10 @@ interface InvocationParameters {
 
 const ImagePickerDialog: React.FC<ImagePickerDialogProps> = ({ sdk }) => {
   const { apiUrl } = sdk.parameters.invocation as InvocationParameters;
-  const [images, setImages] = useState<Image[]>([]);
+  const [images, setImages] = useState<PixabayImageData[]>([]);
   const [page, setPage] = useState<number>(0);
   const [totalImages, setTotalImages] = useState<number>(0);
-  const [selectedImage, setSelectedImage] = useState<Image | null>(null);
+  const [selectedImage, setSelectedImage] = useState<PixabayImageData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -57,7 +52,7 @@ const ImagePickerDialog: React.FC<ImagePickerDialogProps> = ({ sdk }) => {
     fetchImages();
   }, [apiUrl, page]);
 
-  const handleImageSelect = (image: Image) => {
+  const handleImageSelect = (image: PixabayImageData) => {
     setSelectedImage(image);
     sdk.close({ image });
   };
@@ -81,7 +76,7 @@ const ImagePickerDialog: React.FC<ImagePickerDialogProps> = ({ sdk }) => {
           <AssetCard
             key={image.id}
             type="image"
-            src={image.previewURL}
+            src={image.webformatURL}
             title={image.tags}
             onClick={() => handleImageSelect(image)}
             size="small"

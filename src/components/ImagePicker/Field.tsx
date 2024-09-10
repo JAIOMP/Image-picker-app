@@ -1,23 +1,18 @@
 import React, { useEffect, useState } from "react";
 import {
-  AssetCard,
   Button,
-  Card,
   Flex,
-  Grid,
-  IconButton,
-  Paragraph,
   Text,
-  TextLink,
 } from "@contentful/f36-components";
 import { FieldAppSDK } from "@contentful/app-sdk";
 import { useSDK } from "@contentful/react-apps-toolkit";
-import { CloseIcon, ImageIcon } from "@contentful/f36-icons";
+import { ImageIcon } from "@contentful/f36-icons";
 import PreviewCard from "./PreviewCard";
+import { PixabayImageData } from "../../configs/types";
 
 const ImagePickerField = () => {
   const sdk = useSDK<FieldAppSDK>();
-  const [selectedImages, setSelectedImages] = useState<any[]>([]);
+  const [selectedImages, setSelectedImages] = useState<PixabayImageData[]>([]);
   const { REACT_APP_PIXABAY_API_URL, REACT_APP_PIXABAY_API_KEY } = process.env;
 
   useEffect(() => {
@@ -42,9 +37,8 @@ const ImagePickerField = () => {
   };
 
   const handleRemoveImage = (imageId: number) => {
-    const updatedImages = selectedImages.filter(
-      (image: any) => image.id !== imageId
-    );
+    const updatedImages = selectedImages.filter(({ id }) => id !== imageId);
+    
     setSelectedImages(updatedImages);
   };
 
@@ -66,6 +60,7 @@ const ImagePickerField = () => {
           onClick={handleOpenDialog}
           variant="primary"
           size="medium"
+          style={{maxWidth: '150px'}}
         >
           Pick Image
         </Button>

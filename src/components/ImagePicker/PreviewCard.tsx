@@ -8,8 +8,14 @@ import {
   Subheading
 } from "@contentful/f36-components";
 import { CloseIcon, ExternalLinkIcon, ThumbUpIcon, DownloadIcon } from "@contentful/f36-icons";
+import { PixabayImageData } from "../../configs/types";
 
-const PreviewCard = (props: any) => {
+interface PreviewCardProps {
+  image: PixabayImageData
+  handleClose: Function
+}
+
+const PreviewCard = (props: PreviewCardProps) => {
   const { image, handleClose } = props;
 
   return (
@@ -29,7 +35,6 @@ const PreviewCard = (props: any) => {
         </div>
       </Flex>
       <Flex
-        gap="spacingXs"
         style={{ position: "absolute", top: "5px", right: "5px" }}
         alignItems="center"
       >
