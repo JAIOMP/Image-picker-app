@@ -2,13 +2,18 @@ import React, { useEffect, useState } from "react";
 import {
   AssetCard,
   Button,
+  Card,
   Flex,
+  Grid,
   IconButton,
+  Paragraph,
   Text,
+  TextLink,
 } from "@contentful/f36-components";
 import { FieldAppSDK } from "@contentful/app-sdk";
 import { useSDK } from "@contentful/react-apps-toolkit";
 import { CloseIcon, ImageIcon } from "@contentful/f36-icons";
+import PreviewCard from "./PreviewCard";
 
 const ImagePickerField = () => {
   const sdk = useSDK<FieldAppSDK>();
@@ -48,21 +53,7 @@ const ImagePickerField = () => {
       <Flex flexDirection="column" gap="spacingS">
         {selectedImages.length > 0 ? (
           selectedImages.map((image) => (
-            <AssetCard
-              key={image.id}
-              type="image"
-              title={image.tags}
-              src={image.previewURL}
-              size="small"
-              icon={
-                <IconButton
-                  variant="secondary"
-                  aria-label="Remove image"
-                  icon={<CloseIcon />}
-                  onClick={() => handleRemoveImage(image.id)}
-                />
-              }
-            />
+            <PreviewCard image={image} handleClose={handleRemoveImage} />
           ))
         ) : (
           <Text fontSize="fontSizeL" lineHeight="lineHeightL">

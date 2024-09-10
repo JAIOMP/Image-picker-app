@@ -73,7 +73,7 @@ const ImagePickerDialog: React.FC<ImagePickerDialogProps> = ({ sdk }) => {
   return (
     <Flex flexDirection="column" justifyContent="space-between" gap="spacingS" padding="spacingM">
       <Text fontSize="fontSizeL" lineHeight="lineHeightL">
-        Click on an image to select:
+        Select an image to embed below:
       </Text>
 
       <Grid columns="3fr 3fr 3fr" rowGap="spacingM" columnGap="spacingM">
