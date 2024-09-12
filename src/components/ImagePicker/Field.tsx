@@ -46,8 +46,8 @@ const ImagePickerField = () => {
     <>
       <Flex flexDirection="column" gap="spacingS">
         {selectedImages.length > 0 ? (
-          selectedImages.map((image) => (
-            <PreviewCard image={image} handleClose={handleRemoveImage} />
+          selectedImages.map((image, index) => (
+            <PreviewCard key={index} image={image} handleClose={handleRemoveImage} />
           ))
         ) : (
           <Text fontSize="fontSizeL" lineHeight="lineHeightL">

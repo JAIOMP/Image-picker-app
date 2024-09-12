@@ -39,7 +39,7 @@ describe("ImagePickerDialog", () => {
     jest.clearAllMocks();
   });
 
-  test.skip("renders loading spinner while fetching images", async () => {
+  test("renders loading spinner while fetching images", async () => {
     (fetch as jest.Mock).mockReturnValueOnce(new Promise(() => {}));
 
     await act(async () => {
@@ -47,7 +47,7 @@ describe("ImagePickerDialog", () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByRole("progressbar")).toBeInTheDocument();
+      expect(screen.getByTestId("cf-ui-spinner")).toBeInTheDocument();
     });
   });
 
@@ -69,7 +69,7 @@ describe("ImagePickerDialog", () => {
       expect(screen.getByText("Ocean, Beach")).toBeInTheDocument();
     });
 
-    const imageElements = screen.getAllByRole("img");
+    const imageElements = screen.getAllByRole("button");
     expect(imageElements.length).toBe(2);
   });
 
@@ -128,7 +128,9 @@ describe("ImagePickerDialog", () => {
       expect(screen.getByText("Nature, Forest")).toBeInTheDocument();
     });
 
-    fireEvent.click(screen.getByRole("button", { name: /next/i }));
+    await act(async () => {
+      fireEvent.click(screen.getByRole("button", { name: /next/i }));
+    })
 
     expect(fetch).toHaveBeenCalledWith(expect.stringContaining("&page=2"));
   });

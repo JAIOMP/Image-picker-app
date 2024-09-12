@@ -12,7 +12,7 @@ describe("Field component", () => {
   test("renders the Pick image button", () => {
     render(<Field />);
 
-    const button = screen.getByText("Pick image");
+    const button = screen.getByText("Pick Image");
     expect(button).toBeInTheDocument();
   });
 
@@ -29,7 +29,7 @@ describe("Field component", () => {
 
     render(<Field />);
 
-    const button = screen.getByText("Pick image");
+    const button = screen.getByText("Pick Image");
 
     fireEvent.click(button);
 
@@ -55,7 +55,7 @@ describe("Field component", () => {
 
     render(<Field />);
 
-    const button = screen.getByText("Pick image");
+    const button = screen.getByText("Pick Image");
 
     fireEvent.click(button);
     const imageCard = await screen.findByText("Nature");
