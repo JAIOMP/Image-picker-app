@@ -78,7 +78,7 @@ const ImagePickerDialog: React.FC<ImagePickerDialogProps> = ({ sdk }) => {
             type="image"
             src={image.webformatURL}
             title={image.tags}
-            onClick={() => handleImageSelect(image)}
+            onClick={() => handleImageSelect({...image, imageId: Date.now().toString()})}
             size="small"
             isSelected={selectedImage?.id === image.id}
             style={{ cursor: "pointer" }}

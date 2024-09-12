@@ -36,8 +36,8 @@ const ImagePickerField = () => {
     }
   };
 
-  const handleRemoveImage = (imageId: number) => {
-    const updatedImages = selectedImages.filter(({ id }) => id !== imageId);
+  const handleRemoveImage = (imageId: string) => {
+    const updatedImages = selectedImages.filter((img) => img.imageId !== imageId);
     
     setSelectedImages(updatedImages);
   };

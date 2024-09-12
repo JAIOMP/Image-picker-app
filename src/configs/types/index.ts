@@ -22,4 +22,5 @@ export interface PixabayImageData {
   user_id: number;
   user: string;
   userImageURL: string;
+  imageId?: string;
 }

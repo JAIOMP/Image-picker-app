@@ -26,6 +26,7 @@ const mockImages = [
     id: 1,
     previewURL: "https://example.com/image1.jpg",
     tags: "Nature, Forest",
+    imageId: "1633052800000",
   },
   {
     id: 2,
@@ -36,6 +37,7 @@ const mockImages = [
 
 describe("ImagePickerDialog", () => {
   beforeEach(() => {
+    jest.spyOn(Date, 'now').mockImplementation(() => 1633052800000);
     jest.clearAllMocks();
   });
 

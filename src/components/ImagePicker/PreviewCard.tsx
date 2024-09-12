@@ -49,7 +49,7 @@ const PreviewCard = (props: PreviewCardProps) => {
         <IconButton
           aria-label="Remove image"
           icon={<CloseIcon />}
-          onClick={() => handleClose(image.id)}
+          onClick={() => handleClose(image.imageId)}
         />
       </Flex>
     </Card>
