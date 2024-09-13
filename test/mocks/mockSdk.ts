@@ -19,6 +19,10 @@ const mockSdk: any = {
       apiUrl: 'https://pixabay.com/api/?key=API_KEY',
     },
   },
+  field: {
+    getValue: jest.fn(),
+    setValue: jest.fn(),
+  },
   close: jest.fn(),
 };
 

@@ -16,8 +16,13 @@ const ImagePickerField = () => {
   const { REACT_APP_PIXABAY_API_URL, REACT_APP_PIXABAY_API_KEY } = process.env;
 
   useEffect(() => {
+    const initialValue = sdk.field.getValue()
+    if(initialValue) {
+      setSelectedImages(initialValue)
+    }
+
     sdk.window.startAutoResizer();
-  }, [sdk.window]);
+  }, [sdk.window, sdk.field]);
 
   const handleOpenDialog = async () => {
     const dialogResult = await sdk.dialogs.openCurrentApp({
@@ -32,14 +37,17 @@ const ImagePickerField = () => {
     });
 
     if (dialogResult) {
-      setSelectedImages([dialogResult.image, ...selectedImages]);
+      const updatedImages = [dialogResult.image, ...selectedImages]
+      setSelectedImages(updatedImages);
+      sdk.field.setValue(updatedImages)
     }
   };
 
-  const handleRemoveImage = (imageId: string) => {
+  const handleRemoveImage = async (imageId: string) => {
     const updatedImages = selectedImages.filter((img) => img.imageId !== imageId);
-    
+    await sdk.field.setValue(updatedImages)
     setSelectedImages(updatedImages);
+    
   };
 
   return (

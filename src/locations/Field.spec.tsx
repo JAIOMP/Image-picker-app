@@ -1,6 +1,6 @@
 import React from "react";
 import Field from "./Field";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import { mockCma, mockSdk } from "../../test/mocks";
 
 jest.mock("@contentful/react-apps-toolkit", () => ({
@@ -63,8 +63,10 @@ describe("Field component", () => {
     expect(imageCard).toBeInTheDocument();
 
     const closeButton = screen.getByRole("button", { name: /remove image/i });
-    fireEvent.click(closeButton);
-
+    await act(async () => {
+      fireEvent.click(closeButton);
+    })
+    
     expect(screen.queryByText("Nature")).not.toBeInTheDocument();
   });
 });

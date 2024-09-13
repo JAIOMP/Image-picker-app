@@ -37,7 +37,7 @@ This app is built on the **Contentful app framework** and allows Contentful edit
 ## Workflow
 1. **Open Entry**: Editors open an entry in Contentful that contains a specific field designed for embedding images.
 2. **Open Image Picker**: Click the button in the field to open a dialog for selecting images from Pixabay.
-3. **Search and Select**: Search the Pixabay image catalog, select an image, and confirm the selection.
+3. **Browse and Select**: Browse the Pixabay image catalog, select an image, and confirm the selection.
 4. **Display Image**: The selected image is displayed in the field for preview.
 5. **Replace or Remove**: Editors can remove the selected image or replace it by selecting a new one.
 
@@ -45,8 +45,8 @@ This app is built on the **Contentful app framework** and allows Contentful edit
 
 ### Contentful Integration
 - **Field-Level App**: The app integrates at the field level, allowing users to browse the Pixabay image catalog and embed functionality directly within the Contentful entry editor.
-- **Data Storage**: Image data is stored as JSON. It shows image as preview card which includes or shows tags, remove image, open image in other tab, likes and downloads info.
-- **Content Type Setup**: Content type with a **short text field**.
+- **Data Storage**: Image data is stored as JSON. It shows image as preview card which includes tags, remove image icon, open image in other tab icon, likes and downloads information.
+- **Content Type Setup**: Content type with a **JSON field**.
 
 ### Tools and Libraries Used
 - **create-contentful-app**: Used for scaffolding and deploying the app.
