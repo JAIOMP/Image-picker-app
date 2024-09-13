@@ -3,6 +3,20 @@
 ## Description
 This app is built on the **Contentful app framework** and allows Contentful editors to easily select, and embed images from **Pixabay** into Contentful entries. The app is a **field-level** app that provides a seamless experience for attaching and managing images within Contentful.
 
+## Screenshots
+
+### 1. Pick Image button
+![Field Entry button Screenshot](./public/assets/screenshots/fieldEntryButton.png)
+
+### 2. Image picker dialog
+![Image picker Dialog screenshot](./public/assets/screenshots/imagePickerDialog.png)
+
+### 3. Pagination 
+![pagination Screenshot](./public/assets/screenshots/pagination.png)
+
+### 4. Preview card of selected image 
+![Preview card Screenshot](./public/assets/screenshots/previewCard.png)
+
 ## Features
 
 ### 1. Image Selection from Pixabay
@@ -17,6 +31,9 @@ This app is built on the **Contentful app framework** and allows Contentful edit
 ### 3. Multiple Image Selection
 - **Multiple Image Attachments**: Editors have the option to attach and manage multiple images for a single entry.
 
+### 4. Unit tests (Dev)
+- **Added unit tests**: Unit tested files associated with image picker app.
+
 ## Workflow
 1. **Open Entry**: Editors open an entry in Contentful that contains a specific field designed for embedding images.
 2. **Open Image Picker**: Click the button in the field to open a dialog for selecting images from Pixabay.
@@ -27,9 +44,9 @@ This app is built on the **Contentful app framework** and allows Contentful edit
 ## Technical Details
 
 ### Contentful Integration
-- **Field-Level App**: The app integrates at the field level, allowing users to trigger the Pixabay search and embed functionality directly within the Contentful entry editor.
-- **Data Storage**: Image data is stored as either a **URL** (for lightweight embedding) or the full **JSON** response from Pixabay (for more comprehensive data).
-- **Content Type Setup**: Create a content type with a **short text field** (for URLs) or a **JSON field** (for full Pixabay response storage) to accommodate the app.
+- **Field-Level App**: The app integrates at the field level, allowing users to browse the Pixabay image catalog and embed functionality directly within the Contentful entry editor.
+- **Data Storage**: Image data is stored as JSON. It shows image as preview card which includes or shows tags, remove image, open image in other tab, likes and downloads info.
+- **Content Type Setup**: Content type with a **short text field**.
 
 ### Tools and Libraries Used
 - **create-contentful-app**: Used for scaffolding and deploying the app.
@@ -47,7 +64,7 @@ This app is built on the **Contentful app framework** and allows Contentful edit
 
 In the project directory, you can run:
 
-For this command to work, the following environment variables must be set:
+For the below commands to work, the following environment variables must be set either as .env file or node environment variables:
 
 - `CONTENTFUL_ORG_ID` - The ID of your organization
 - `CONTENTFUL_APP_DEF_ID` - The ID of the app to which to add the bundle
