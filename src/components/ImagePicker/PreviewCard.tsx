@@ -24,6 +24,7 @@ const PreviewCard = (props: PreviewCardProps) => {
         <img
           src={image.previewURL}
           alt={image.tags}
+          aria-label={image.tags}
           style={{ maxWidth: "100px" }}
         />
         <div>
